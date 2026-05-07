@@ -8,7 +8,7 @@ import androidx.glance.layout.*
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
-import androidx.glance.unit.sp
+import androidx.compose.ui.unit.sp
 import com.maaser.app.data.repository.MaaserRepository
 import com.maaser.app.ui.theme.BalanceNegative
 import com.maaser.app.ui.theme.BalancePositive

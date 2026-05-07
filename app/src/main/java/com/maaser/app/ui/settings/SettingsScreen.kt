@@ -46,8 +46,12 @@ fun SettingsScreen(
     }
 
     val signInClient = remember {
+        val resId = context.resources.getIdentifier(
+            "default_web_client_id", "string", context.packageName
+        )
+        val webClientId = if (resId != 0) context.getString(resId) else ""
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(context.getString(R.string.default_web_client_id))
+            .requestIdToken(webClientId)
             .requestEmail()
             .requestScopes(Scope("https://www.googleapis.com/auth/drive.appdata"))
             .build()
