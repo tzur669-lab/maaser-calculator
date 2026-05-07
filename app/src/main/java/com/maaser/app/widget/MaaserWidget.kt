@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.sp
 import com.maaser.app.data.repository.MaaserRepository
 import com.maaser.app.ui.theme.BalanceNegative
 import com.maaser.app.ui.theme.BalancePositive
+import com.maaser.app.ui.theme.BalanceNeutral
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
@@ -31,18 +32,23 @@ class MaaserWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val entryPoint = EntryPointAccessors.fromApplication(context.applicationContext, WidgetEntryPoint::class.java)
         val balance = entryPoint.repository().getBalance().first()
-        val isOwed = balance > 0
-        val color = if (isOwed) ColorProvider(BalanceNegative) else ColorProvider(BalancePositive)
+        val color = when {
+            balance > 0 -> ColorProvider(BalanceNegative)
+            balance < 0 -> ColorProvider(BalancePositive)
+            else -> ColorProvider(BalanceNeutral)
+        }
 
         provideContent {
             Column(
-                modifier = GlanceModifier.fillMaxSize().padding(12.dp),
+                modifier = GlanceModifier.fillMaxSize().padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("מחשבון מעשרות", style = TextStyle(fontSize = 11.sp))
-                Text("₪${"%.2f".format(abs(balance))}", style = TextStyle(color = color, fontSize = 28.sp))
-                Text(if (isOwed) "חייב" else "בפלוס", style = TextStyle(color = color, fontSize = 13.sp))
+                Text("מחשבון מעשרות", style = TextStyle(fontSize = 10.sp))
+                Text(
+                    "₪${"%.2f".format(abs(balance))}",
+                    style = TextStyle(color = color, fontSize = 24.sp)
+                )
             }
         }
     }
