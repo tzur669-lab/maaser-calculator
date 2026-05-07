@@ -1,0 +1,31 @@
+# Android
+*.iml
+.gradle/
+local.properties
+.idea/
+.DS_Store
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Firebase
+google-services.json
+
+# Keystore
+*.jks
+*.keystore
+release/
+
+# Kotlin/Java
+*.class
+*.dex
+
+# NDK
+obj/
+
+# Lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
