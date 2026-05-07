@@ -3,6 +3,12 @@ name: Build Android APK
 on:
   push:
     branches: [ "main", "develop" ]
+  workflow_dispatch:
+    inputs:
+      note:
+        description: 'הערה (אופציונלי)'
+        required: false
+        default: 'בנייה ידנית'
 
 jobs:
   build:
@@ -54,3 +60,4 @@ jobs:
       with:
         name: maaser-app-debug
         path: app/build/outputs/apk/debug/*.apk
+        retention-days: 30
